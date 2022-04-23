@@ -19,6 +19,8 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -30,6 +32,19 @@ jobs:
         
       - name: Git Version
         uses: codacy/git-version@2.2.0
+        with:
+          release-branch: main
 
       - name: Zip Release
         uses: TheDoctor0/zip-release@0.6.2
+        with:
+          type: 'zip'
+          filename: 'rdl_timber.zip'
+          exclusions: '*.git*'
+          
+      - name: Upload Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "rdl_timber.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
+        
