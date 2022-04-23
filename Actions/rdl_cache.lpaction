@@ -1,0 +1,12 @@
+ACTION_UNIQUEID: rdl_cache
+ACTION_NAME: Check matches on Timber
+WHERE: home
+WHEN: 0 - 24
+MINUTES: 1 - 2
+TIMEOUT_MINUTES: 0
+ALSO_TIMEOUT: 
+EFFECTS:
+CONDITIONS: Player.getActorVar(timberMember)>0
+MOVE_FIRST: false
+SCENE_ALWAYS: rdl_cache
+ANIMATION:   

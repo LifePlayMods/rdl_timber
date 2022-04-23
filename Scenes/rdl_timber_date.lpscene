@@ -1,0 +1,199 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: Actor = getSpecific(PassedOn)
+OTHER: ForcedTrigger()==true
+
+SceneStart()
+stayInMenu=true
+secondScreen(Actor)
+Actor.dress()
+Actor.show(2)
+Actor(Curious)::"Hi there <Player.name>, what's up?"
+
+While stayInMenu
+  
+    0::arousal>10::"Saw your profile and now I am horny"
+    1::"Think you are cute"
+    2::"Let's go out on a date!"
+    3::"Send her a gift"
+    4::"Take off clothes and send dickpic"
+    5::"Ask her how she feels"
+    6::"Remove match"
+    7::"Quit"
+    pick=choice
+        If pick==0
+            If Actor:arousal > 80
+                Actor(Smiling)::"Oh, me too!"
+                Actor::"Show me your dick <Actor:name>...."
+                Actor:rapportwithplayer+=Random(1,5)
+            Else
+                Actor(Angry)::"I am not. Keep it to yourself."
+                Actor:rapportwithplayer-=Random(1,5)
+            EndIf
+        ElseIf pick==1
+            Random
+                Player(Happy)::"I think you are cute..."
+                Player(Happy)::"I think <Actor.name> is such a nice name!"
+                Player(Happy)::"Hi <Actor.name>, you are so sexy.."
+                Player(Happy)::"Angel <Actor.name> is on my screen wiii"
+            EndRandom
+            Random    
+                Actor(Laughing)::"Hihi"
+                Actor(Surprised)::"So that is what is on your mind"
+                Actor(Happy)::"Funny you"
+            EndRandom     
+            mood+=3
+            Actor:rapportwithplayer+=Random(0,1)
+            Actor:arousal+=Random(0,5)
+            stayInMenu=true
+        ElseIf pick==2
+            If Actor:rapportwithplayer>35
+                Actor(Happy)::"Where do you want to meet <Actor:rapportwithplayer>"
+                
+                    0::"Cafe"
+                    1::"Pub"
+                    2::"Cinema.."
+                    3::"Nightclub"
+                    4::"My Place"
+                    5::"Your Place"
+                        
+                        If choice==0
+                            loc=findNearbyBuilding(cafe)
+                        ElseIf choice==1
+                            loc=findNearbyBuilding(bar,pub)
+                        ElseIf choice==2
+                            loc=findNearbyBuilding(cinema)
+                        ElseIf choice==3
+                            loc=findNearbyBuilding(nightclub)
+                        ElseIf choice==4
+                            loc=Player.getBuilding(Home)
+                        ElseIf choice==5
+                            loc=Actor.getBuilding(Home)
+                        EndIf
+                
+                Actor::"Ok! See you there.."
+                moveTo(loc)
+                Actor.startDate()
+                stayInMenu=false   
+            Else
+                Actor(Surprised)::"I don't know you well enough and I am not in the mood."
+                Actor::"Let's chat a bit more first!"
+            EndIf
+        ElseIf pick==3
+            toyPrice=100
+            localPrice=toyPrice.convertToLocalCurrency(true)
+            0::Player:stock_gift>0::"Send gift"
+            1::Player:money>toyPrice::"Send sextoy (<localPrice>)"
+
+            If choice==0
+                Player.stock_gift-=1
+                Actor::"I received your gift! How nice of you xx!"
+                Actor:rapportwithplayer+=Random(0,2)
+                Actor:arousal+=Random(0,5)
+            ElseIf choice==1
+                Player:money-=100
+                If Actor:rapportwithplayer>15 && Actor:arousal>50)
+                    Actor(Flirty)::"I received your gift.."
+                    Actor(Flirty)::"Great gift.. Can not wait to try it! <Actor:mood>"
+                    Actor.strip()
+                    Actor.hide()
+                    Player.hide()
+                    clearGetList()
+                    setbackground3D(Modules/rdl_timber/tmpGirlRoom.lpworld,false)
+                    Actor.show(15,0,410)
+                    cameraMove(30,0,800,0,-35,-180)
+                    Filter(Dildo)
+                    FilterTalk(rdl_timber_restricted)
+                    FilterDesc(rdl_timber_restricted)
+                    cameraFocus(Actor)
+                    sexAtPoint(15,0,410)
+                    sex(Actor)
+                    setBackground(home)
+                    cameraMove(0,0,1000,0,-40,-180)
+                    Actor.hide()
+                    Actor.setActorVar(rdl_gotDildo,1)
+                    secondScreen(Actor)
+                    
+                    Player.show()
+                    Random
+                        Actor::"That was so nice.. "
+                        Actor::"Getting so hot..."
+                        Actor(Happy)::"You really know what I want"
+                    EndRandom
+                    Actor:rapportwithplayer+=Random(1,5)
+                    stayInMenu=true
+                Else
+                    Actor(Angry)::"Why you send me this? Get to know me better first!"
+                    Actor:arousal-=Random(1,10)
+                    Actor:rapportwithplayer-=Random(1,5)
+                EndIf
+
+            EndIf
+        ElseIf pick==4
+            Player.strip()
+            Player:arousal += Random(0, 10)
+            If Actor:arousal > 80
+                Actor::"Nice dick, you are turning me on!"
+                Actor:rapportwithplayer+=Random(1,5)
+                Actor:attractiontoplayer+=Random(0,3)
+                Actor:arousal+=Random(1,10)
+                Actor.setActorVar(rdl_gotDickPic,1)
+            Else
+                Actor(Angry)::"What!!! How dare you <Player.name>!"
+                Actor:rapportwithplayer-=Random(5,10)
+                Actor:arousal-=Random(5,10)
+                Actor:attractiontoplayer-=Random(1,10)
+                Player:karma-=Random(1,5)
+                Actor.setActorVar(rdl_gotDickPic,2)
+            EndIf
+            stayInMenu=true    
+        ElseIf pick==5
+            If Actor:rapportwithplayer<35
+                Actor::"Let's chat more!"
+            EndIf
+            If Actor:rapportwithplayer>10 && Actor:rapportwithplayer<35
+                Random
+                    Actor(Happy)::"Starting to like you"
+                    Actor(Happy)::"Think you are a nice match"
+                EndRandom
+            EndIf
+            If Actor:rapportwithplayer>=35
+                Random
+                    Actor(Happy)::"Think we should go on a date"
+                    Actor(Happy)::"When are we seeing each other?"
+                EndRandom
+            EndIf
+            If Actor:arousal>80
+                Random
+                    Actor(Horny)::"In the mood for naughty stuff"  
+                    Actor(Horny)::"Getting horny"
+                EndRandom
+            EndIf   
+        ElseIf pick==6
+            "Removing match"
+            blockContact(Actor)
+            Actor.hide()
+            Actor.delete()
+            Actor.deletePerson()  
+            SceneEnd()  
+        ElseIf pick==7
+            Actor.hide()
+            Actor.delete()
+            SceneEnd()
+        EndIf
+
+        If Actor:rapportwithplayer<2
+            Actor(Angry)::"I am done with you!"
+            "Match cancelled"
+            blockContact(Actor)
+            Actor.delete()
+            Actor.deletePerson()
+            SceneEnd()
+        EndIf
+
+
+EndWhile
+SceneEnd()
+
+   

@@ -1,0 +1,13 @@
+ACTION_UNIQUEID: rdl_timber_interactions
+ACTION_NAME: Talk about Timber match
+WHERE: interaction
+WHEN: 0 - 24
+MINUTES:
+TIMEOUT_MINUTES: 0
+ALSO_TIMEOUT: 
+EFFECTS:
+CONDITIONS:
+MOVE_FIRST: false
+SCENE_ALWAYS: rdl_interactions
+ANIMATION:
+WHO: Actor = getCompanion(); If !Actor.isCreature() && WHERE != PC

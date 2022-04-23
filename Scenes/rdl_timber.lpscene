@@ -1,0 +1,273 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+keepSearching=true
+stayInMenu=false
+SceneStart()
+timberMember=Player.getActorVar(timberMember)
+If !timberMember
+    Player::"I need an account first"
+    followUp(rdl_account)
+    SceneEnd()
+EndIf
+premiumDays=Player:rdlTimberPremium
+While keepSearching !== false
+  keepSearching=false
+   Player.animate(browse)
+   
+   Matching=Matches.GetGlobal()
+   MySwipes=Swipes.GetGlobal()
+
+   If !isTimingOut(rdl_timber) && MySwipes<3 && premiumDays < 1
+      MySwipes=3
+      "You got your daily free Timber likes !"
+      timeoutPrecise(24,rdl_timber)
+      trigger=ForcedTrigger()
+      If !trigger
+        stayInMenu=true
+        keepSearching=false
+
+        SceneEnd()
+      EndIf
+   EndIf
+
+ 
+  likesMe=CachedLikes.GetGlobal()
+  If !stayInMenu 
+      
+      If Random(1,100) > 70 && likesMe > 0 && Matching < 3
+          "You got a match!"
+          mood+=Random(10,20)
+          arousal+=Random(0,10)
+          Matching+=1
+          Matches.setGlobal(Matching)
+          likesMe-=1
+          CachedLikes.setGlobal(likesMe) 
+      EndIf
+        Swipes.SetGlobal(MySwipes)
+        If Actor.isValid()
+            Actor.hide()
+            Actor.deletePerson()
+            Actor.delete()
+        EndIf
+    clearGetList()
+    tRaceID=Player.getActorVar(timberRace)
+    If tRaceID>0
+        If tRaceID==0
+            setRaceGenerated(Player,false)
+        ElseIf tRaceID==1
+            setRaceGenerated(arab)
+        ElseIf tRaceID==2
+            setRaceGenerated(black)
+        ElseIf tRaceID==3
+            setRaceGenerated(indian)
+        ElseIf tRaceID==4
+            setRaceGenerated(latin)
+        ElseIf tRaceID==5
+            setRaceGenerated(white)
+        EndIf
+    EndIf
+
+        
+    Actor = generatePersonTemporary()
+        While !Player.isInterestedIn(Actor)
+            Actor = Player.generatePersonTemporary()
+        EndWhile
+    Actor.loadPreset(twenties)
+    Actor.blendPreset(hourglass1_F)
+    
+    Actor.dress()
+    
+   secondScreen(Actor)
+   Actor.show(1)
+   OldTaste=Actor:likes_older
+   ActorLooks=Actor:attractiveness
+   SheLikesMe=Actor:attractiontoplayer
+   If SheLikesMe > 70
+      Sexy=true
+   Else
+      Sexy=false
+   EndIf
+   pervert=Actor:perversion
+   
+   If OldTaste > 5
+       older="Age does not matter that much"
+   EndIf
+   If OldTaste > 50
+       older="I prefer older men"
+   EndIf
+   If OldTaste < 6
+      older="I don't really like older guys"
+   EndIf
+   If OldTaste < -50
+      older="I prefer someone not older than me"
+   EndIf
+   If ActorLooks > 50
+      hot="Ok" 
+   EndIf
+   If ActorLooks > 75
+     hot="hot"
+   EndIf
+   If ActorLooks > 90
+     hot="really hot"
+   If ActorLooks <50
+      hot="ugly"  
+   EndIf
+   If pervert > 0 
+     kinky="I am not that experienced" 
+   if pervert > 10
+     kinky="I had some dates"
+   If pervert > 50
+     kinky="I am a little slut"
+   EndIf
+   If pervert > 80
+     kinky="I am a kinky little pervert."
+   EndIf
+
+   If pervert < 1
+     kinky="I am pretty shy"
+   EndIf
+   If Actor.isVirgin()
+     virgin="I am an innocent girl."
+   Else
+     virgin=""
+   EndIf
+   Random
+      Actor(Happy)::"I am <Actor.name>, <Actor:age> years old, <older>, <kinky> <virgin>.. People think I look <hot>."
+      Actor(Happy)::"Hi there I am <Actor:age> years young and my name is <Actor.name>, <older>, <kinky> <virgin>.. They say I am <hot>."
+   endRandom
+  EndIf
+  
+  
+
+   fillUpSwipes = 3-MySwipes
+   likesPrice=30*fillUpSwipes
+   localPrice=likesPrice.convertToLocalCurrency(true)
+   1::"TIMBER (Select for Settings)"
+   2::"Swipe Left (dislike)"
+   3::MySwipes>0||premiumDays>0::"Swipe Right (like)"
+   4::Matching>0||premiumDays>0::"Swipe Up (<Matching> matches)"
+   5::"Swipe down (quit)"
+   6::fillUpSwipes>0 && premiumDays<1::"Get <fillUpSwipes> likes  <localPrice>"
+   7::"Contact one of your matches"
+
+   Actor.animate()
+   menu=choice
+   stayInMenu=false
+ 
+   If 2
+        Player(Sad)::"Don't like her, I have <MySwipes> likes left.." 
+        stayInMenu = false
+        keepSearching = true
+        Actor.hide()
+        Actor.delete()
+   ElseIf 3
+          MySwipes-=1
+          If premiumDays>1
+              MySwipes=3
+          EndIf
+          Swipes.SetGlobal(MySwipes)
+          If premiumDays>1
+              MySwipes="unlimited"
+          EndIf
+          "I like her, I have <MySwipes> likes left.."
+
+          If  Actor.isInterestedIn(Player) && Sexy == true && Random(1,100)>33
+            Actor.makePermanent()
+              If likesMe == 0
+                MatchesAID = Actor.getID()
+                TMatchA.setGlobal(MatchesAID)
+                CachedLikes.setGlobal(1)
+              EndIf
+              If likesMe == 1
+                MatchesBID = Actor.getID()
+                TMatchB.setGlobal(MatchesBID)
+                CachedLikes.setGlobal(2)
+              EndIf
+              If likesMe >= 2
+                MatchesCID = Actor.getID()
+                TMatchC.setGlobal(MatchesCID)
+                CachedLikes.setGlobal(3)
+              EndIf
+              likesMe=CachedLikes.getGlobal()
+          EndIf
+
+          stayInMenu=false
+          keepSearching = true
+          Actor.saveAndDelete()
+          Actor.hide()
+          
+   Endif
+   If 4
+        Actor.hide()
+        Actor.delete()
+        Actor.deletePerson()
+        followUp(rdl_matches)
+        stayInMenu=false
+        keepSearching=false
+        passTime(1,2)
+        SceneEnd()
+   EndIf
+   If 6 
+        money-=likesPrice
+        Swipes.setGlobal(3)
+        MySwipes=3
+        "You paid <localPrice> for <fillUpSwipes> likes.."
+        stayInMenu = true
+        
+        keepSearching = true
+        passTime(0.5,1)
+   EndIf
+
+   If 7
+        Actor.hide()
+        Actor.delete()
+        secondScreen()
+        
+        "Please select the match that you want to contact"
+        selectNPC(tag_Timber)
+        TimberActor = getSelectedNPC()
+        TimberActor.passOn()
+        secondScreen(TimberActor)
+        stayInMenu=false
+        keepSearching = false
+        TimberActor.saveAndDelete(true)
+        followUp(rdl_timber_date)
+        passTime(2,4)
+        SceneEnd()
+
+   EndIf
+   If 1
+       stayInMenu = true
+       keepSearch = true
+       clearGetList()
+       passTime(0.5,1)
+       followUp(rdl_account)
+       SceneEnd()
+      
+   EndIf
+ 
+   If 5
+        Player::"That is enough Timber for now"
+        Player.animate()
+        stayInMenu = false
+        keepSearching = false  
+        clearGetList()
+        Actor.hide()
+        Actor.deletePerson()
+        Actor.delete()
+        
+        passTime(1,2)
+        SceneEnd()
+   EndIf
+
+ passTime(0.5,1.5)
+
+EndWhile
+
+clearGetList()
+
+SceneEnd()

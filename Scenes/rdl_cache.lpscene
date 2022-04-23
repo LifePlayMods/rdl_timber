@@ -1,0 +1,32 @@
+WHAT: all
+WHERE: all
+WHEN: 0 - 24
+WHO:
+OTHER: Player.getActorVar(timberMember)>0 
+
+SceneStart()
+
+likesMe=CachedLikes.GetGlobal()
+If likesMe > 0 && Matching < 3
+        "You got a Timber match!"
+        mood+=Random(10,20)
+        arousal+=Random(0,10)
+        Matching+=1
+        Matches.setGlobal(Matching)
+        likesMe-=1
+        CachedLikes.setGlobal(likesMe) 
+EndIf
+If Player:rdlTimberPremium==0
+        "Special offer from Timber! Subscribe to Timber+ for 50% off!!"
+        0::"Yes"
+        1::"No"
+
+        If 0
+           money-=250
+           Player:rdlTimberPremium+=28
+        Else
+           Player::"Not going for paid membership"
+        EndIf
+EndIf
+
+SceneEnd()

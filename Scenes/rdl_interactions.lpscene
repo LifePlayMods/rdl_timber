@@ -1,0 +1,30 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: Actor = CurrentCompanion
+OTHER: isWithCompanion() && Actor.getActorVar(tag_timber)==1
+
+SceneStart()
+    isTimber=Actor.getActorVar(tag_timber)
+    If !isTimber
+        Actor(Surprised)::"I don't know you from Timber!"
+        SceneEnd()
+    EndIf
+    gotDickPic=Actor.getActorVar(rdl_gotDickPic)
+    gotDildo=Actor.getActorVar(rdl_gotDildo)
+
+    0::gotDildo==1::"Remember the dildo I sent you?"
+    1::gotDickPic>0::"Remember the dickpic I sent you?"
+
+    If 0
+        Actor(Flirty)::"I got it with me, want to have fun together with it"
+        Filter(Dildo)
+        sex(Player,Actor)
+    ElseIf 1
+        Actor(Surprised)::"Yeah"
+        Filter(Strip)
+        Player.strip()
+        sex(Player)
+    EndIf
+
+SceneEnd()

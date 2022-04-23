@@ -1,0 +1,58 @@
+WHAT: all
+WHERE: all
+WHEN: 0 - 24
+WHO: none
+OTHER: ForcedTrigger()
+
+SceneStart()
+
+Player(calling)::"Lets check my matches... "
+Matching = Matches.getGlobal()
+Player(Happy)::"I got <Matching> matches"
+While Matching >= 1
+            
+    If Matching == 3
+        ID = TMatchC.getGlobal()
+    ElseIf Matching == 2
+        ID = TMatchB.getGlobal()
+    ElseIf Matching == 1 
+        ID = TMatchA.getGlobal()
+    Else
+        "Got no idea how you got here..<Matching>"
+    EndIf
+    Actor = getSpecific(ID)
+    If Actor.isValid()
+        secondScreen(Actor)
+        Actor.dress()
+        Actor.show()
+        Actor(Happy)::"Hi, <Player.timberHandle>! I am <Actor.name>, <Actor:age>.."
+        
+            0::"Exchange contact with <Actor.name>"
+            1::"Remove match"
+
+            If 0
+                    Actor.makeInterested(Player)
+                    exchangeContact(Actor)
+                    Actor.setActorVar(tag_Timber, 1) 
+                    "Added <Actor.name> to my contacts"
+                    Actor.hide()
+                    Actor.saveAndDelete()
+            Else
+                    Actor.hide()
+                    Actor.deletePerson()
+            EndIf
+            
+    
+        Matching-=1 
+    Else
+        Matching-=1
+        Actor(Crying)::"Cancelled match"
+    EndIf
+    
+    Matches.setGlobal(Matching)
+EndWhile
+"No more matches"
+If ForcedTrigger()
+  followUp(rdl_timber)
+EndIf
+SceneEnd()

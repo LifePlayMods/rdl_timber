@@ -1,0 +1,79 @@
+WHAT: all
+WHERE: all
+WHEN: 0 - 24
+WHO: none
+OTHER: ForcedTrigger()
+
+SceneStart()
+timberMember=Player.getActorVar(timberMember)
+If timberMember==0
+    "Register now for a Free Timber account!"
+EndIf
+If !Player.timberhandle||timberMember==0
+    "Choice an account name"
+    Player.enterCustom(timberhandle)
+    "Your account name is <Player.timberhandle>"
+    Player.setActorVar(timberMember,1)
+EndIf
+stayInMenu=true
+If Player:rdlTimberPremium>0
+   "Plus member: <Player:rdlTimberPremium> days left"
+EndIf
+
+
+premiumPrice=500
+localPrice=premiumPrice.convertToLocalCurrency(true)
+While stayInMenu
+    tRaceID=Player.getActorVar(timberRace)
+    If tRaceID==0
+         tRace="None"
+    ElseIf tRaceID==1
+        tRace="Arab"
+    ElseIf tRaceID==2
+        tRace="Black"
+    ElseIf tRaceID==3
+        tRace="Indian"
+    ElseIf tRaceID==4
+        tRace="Latin"
+    ElseIf tRaceID==5
+        tRace="White"
+    EndIf
+ 
+    0::Player:rdlTimberPremium<1::"Get Timber+ <localPrice> "
+    1::"Change account name"
+    2::"Seeking race <tRace>"
+    3::"Set Maximum Age"
+    4::"Start swiping!"
+
+    stayInMenu=false
+
+    If 0
+        "Getting Timber Plus!"
+        Player:rdlTimberPremium+=28
+        money-=premiumPrice
+        stayInMenu=true
+    ElseIf 1
+        "Choice a new account name (currently: <Player.timberhandle>)"
+        Player.enterCustom(timberhandle)
+        "Your account name is <Player.timberhandle>"
+        stayInMenu=true
+    ElseIf 2
+        tRaceID=tRaceID+1
+        If tRaceID>5
+            tRaceID=0
+        EndIf
+        Player.setActorVar(timberRace,tRaceID)
+        stayInMenu=true
+    ElseIf 4
+        followUp(rdl_timber)
+        stayInMenu=false
+        SceneEnd()
+    EndIf
+
+    If !stayInMenu
+        followUp(rdl_timber)
+        SceneEnd()
+    EndIf
+EndWhile
+
+SceneEnd()

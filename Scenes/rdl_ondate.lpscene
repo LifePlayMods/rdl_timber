@@ -1,0 +1,14 @@
+WHAT: all
+WHERE: all
+WHEN: 0 - 24
+WHO: Actor = CurrentCompanion 
+OTHER: isWithCompanion() && Actor.getActorVar(tag_timber) == 1
+
+SceneStart()
+    Actor::"Nice we are on a Timber date !"
+    knowHer=Actor.getActorVar(tag_timber)
+    If knowHer==1
+        "I know her from Timber"
+    EndIf
+   
+SceneEnd()
