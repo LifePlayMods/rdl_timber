@@ -16,6 +16,7 @@
 - Send gifts, messages, pictures to your match
 - Cancel matches and keep track of previous matches
 - Match can cancel too depending on interactions
+- Preferences for age and race
 
 ## Tips
 - Do not set a naughty picture if you did not find out by messaging that she is ready for it
