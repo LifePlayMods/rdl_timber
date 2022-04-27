@@ -37,108 +37,121 @@ While keepSearching !== false
  
   likesMe=CachedLikes.GetGlobal()
   If !stayInMenu 
-      
-      If Random(1,100) > 70 && likesMe > 0 && Matching < 3
-          "You got a match!"
-          mood+=Random(10,20)
-          arousal+=Random(0,10)
-          Matching+=1
-          Matches.setGlobal(Matching)
-          likesMe-=1
-          CachedLikes.setGlobal(likesMe) 
+        If Random(1,100) > 70 && likesMe > 0 && Matching < 3
+            "You got a match!"
+            mood+=Random(10,20)
+            arousal+=Random(5,15)
+            Matching+=1
+            Matches.setGlobal(Matching)
+            likesMe-=1
+            CachedLikes.setGlobal(likesMe) 
+        EndIf
+          Swipes.SetGlobal(MySwipes)
+          If Actor.isValid()
+              Actor.hide()
+              Actor.deletePerson()
+              Actor.delete()
+          EndIf
+      clearGetList()
+      tRaceID=Player.getActorVar(timberRace)
+      If tRaceID>0
+          If tRaceID==0
+              setRaceGenerated(Player,false)
+          ElseIf tRaceID==1
+              setRaceGenerated(arab)
+          ElseIf tRaceID==2
+              setRaceGenerated(black)
+          ElseIf tRaceID==3
+              setRaceGenerated(indian)
+          ElseIf tRaceID==4
+              setRaceGenerated(latin)
+          ElseIf tRaceID==5
+              setRaceGenerated(white)
+          EndIf
       EndIf
-        Swipes.SetGlobal(MySwipes)
-        If Actor.isValid()
-            Actor.hide()
-            Actor.deletePerson()
-            Actor.delete()
-        EndIf
-    clearGetList()
-    tRaceID=Player.getActorVar(timberRace)
-    If tRaceID>0
-        If tRaceID==0
-            setRaceGenerated(Player,false)
-        ElseIf tRaceID==1
-            setRaceGenerated(arab)
-        ElseIf tRaceID==2
-            setRaceGenerated(black)
-        ElseIf tRaceID==3
-            setRaceGenerated(indian)
-        ElseIf tRaceID==4
-            setRaceGenerated(latin)
-        ElseIf tRaceID==5
-            setRaceGenerated(white)
-        EndIf
+
+          
+      Actor = generatePersonTemporary()
+          While !Player.isInterestedIn(Actor)
+              Actor = Player.generatePersonTemporary()
+          EndWhile
+      If tAgeID==1
+          Actor.loadPreset(twenties)
+          Actor.age=Random(18,28)
+      ElseIf tAgeID==2
+          Actor.loadPreset(thirties)
+          Actor.age=Random(30,39)
+      ElseIf tAgeID==3
+          Actor.loadPreset(fourties)
+          Actor.age=Random(40,49)
+      ElseIf tAgeID==4
+          Actor.loadPreset(fifties)
+          Actor.age=Random(50,59)
+      EndIf
+      Actor.blendPreset(hourglass1_F)
+      
+      Actor.dress()
+      
+    secondScreen(Actor)
+    Actor.show()
+    OldTaste=Actor:likes_older
+    ActorLooks=Actor:attractiveness
+    SheLikesMe=Actor:attractiontoplayer
+    If SheLikesMe > 70
+        Sexy=true
+    Else
+        Sexy=false
     EndIf
-
-        
-    Actor = generatePersonTemporary()
-        While !Player.isInterestedIn(Actor)
-            Actor = Player.generatePersonTemporary()
-        EndWhile
-    Actor.loadPreset(twenties)
-    Actor.blendPreset(hourglass1_F)
+    pervert=Actor:perversion
     
-    Actor.dress()
-    
-   secondScreen(Actor)
-   Actor.show(1)
-   OldTaste=Actor:likes_older
-   ActorLooks=Actor:attractiveness
-   SheLikesMe=Actor:attractiontoplayer
-   If SheLikesMe > 70
-      Sexy=true
-   Else
-      Sexy=false
-   EndIf
-   pervert=Actor:perversion
-   
-   If OldTaste > 5
-       older="Age does not matter that much"
-   EndIf
-   If OldTaste > 50
-       older="I prefer older men"
-   EndIf
-   If OldTaste < 6
-      older="I don't really like older guys"
-   EndIf
-   If OldTaste < -50
-      older="I prefer someone not older than me"
-   EndIf
-   If ActorLooks > 50
-      hot="Ok" 
-   EndIf
-   If ActorLooks > 75
-     hot="hot"
-   EndIf
-   If ActorLooks > 90
-     hot="really hot"
-   If ActorLooks <50
-      hot="ugly"  
-   EndIf
-   If pervert > 0 
-     kinky="I am not that experienced" 
-   if pervert > 10
-     kinky="I had some dates"
-   If pervert > 50
-     kinky="I am a little slut"
-   EndIf
-   If pervert > 80
-     kinky="I am a kinky little pervert."
-   EndIf
-
-   If pervert < 1
-     kinky="I am pretty shy"
-   EndIf
-   If Actor.isVirgin()
-     virgin="I am an innocent girl."
-   Else
-     virgin=""
-   EndIf
-   Random
-      Actor(Happy)::"I am <Actor.name>, <Actor:age> years old, <older>, <kinky> <virgin>.. People think I look <hot>."
-      Actor(Happy)::"Hi there I am <Actor:age> years young and my name is <Actor.name>, <older>, <kinky> <virgin>.. They say I am <hot>."
-   endRandom
+    If OldTaste > 5
+        older="Age does not matter that much"
+    EndIf
+    If OldTaste > 50
+        older="I prefer older men"
+    EndIf
+    If OldTaste < 6
+        older="I don't really like older guys"
+    EndIf
+    If OldTaste < -50
+        older="I prefer someone not older than me"
+    EndIf
+    If ActorLooks > 50
+        hot="Ok" 
+    EndIf
+    If ActorLooks > 75
+      hot="hot"
+    EndIf
+    If ActorLooks > 90
+      hot="really hot"
+    If ActorLooks <50
+        hot="ugly"  
+    EndIf
+    If pervert > 0 
+      kinky="I am not that experienced" 
+    if pervert > 10
+    Random
+      kinky="I had some dates"
+      kinky="You will not be the first"
+    endRandom
+    If pervert > 50
+      kinky="I am a little slut"
+    EndIf
+    If pervert > 80
+      kinky="I am a kinky little pervert."
+    EndIf
+    If pervert < 1
+      kinky="I am pretty shy"
+    EndIf
+    If Actor.isVirgin()
+      virgin="I am an innocent girl."
+    Else
+      virgin=""
+    EndIf
+      Random
+          Actor(Happy)::"I am <Actor.name>, <Actor:age> years old, <older>, <kinky> <virgin>.. People think I look <hot>."
+          Actor(Happy)::"Hi there I am <Actor:age> years young and my name is <Actor.name>, <older>, <kinky> <virgin>.. They say I am <hot>."
+      endRandom
   EndIf
   
   
@@ -159,7 +172,11 @@ While keepSearching !== false
    stayInMenu=false
  
    If 2
-        Player(Sad)::"Don't like her, I have <MySwipes> likes left.." 
+        Random
+          Player(Sad)::"Not my type, I still have <MySwipes> likes left.." 
+          Player(Sad)::"She is not it, Can swipe right <MySwipes> more times.." 
+          Player(Sad)::"Don't like her, I have <MySwipes> likes left.." 
+        endRandom
         stayInMenu = false
         keepSearching = true
         Actor.hide()
@@ -203,8 +220,7 @@ While keepSearching !== false
    Endif
    If 4
         Actor.hide()
-        Actor.delete()
-        Actor.deletePerson()
+       
         followUp(rdl_matches)
         stayInMenu=false
         keepSearching=false
@@ -230,11 +246,11 @@ While keepSearching !== false
         "Please select the match that you want to contact"
         selectNPC(tag_Timber)
         TimberActor = getSelectedNPC()
+        0.passOn()
         TimberActor.passOn()
-        secondScreen(TimberActor)
         stayInMenu=false
         keepSearching = false
-        TimberActor.saveAndDelete(true)
+        TimberActor.saveAndDelete()
         followUp(rdl_timber_date)
         passTime(2,4)
         SceneEnd()
@@ -242,8 +258,7 @@ While keepSearching !== false
    EndIf
    If 1
        stayInMenu = true
-       keepSearch = true
-       clearGetList()
+       keepSearching = true
        passTime(0.5,1)
        followUp(rdl_account)
        SceneEnd()
@@ -251,16 +266,18 @@ While keepSearching !== false
    EndIf
  
    If 5
+      Random
         Player::"That is enough Timber for now"
+        Player::"I will check again later"
+        Player::"Time for other things"
+      endRandom
+
         Player.animate()
         stayInMenu = false
         keepSearching = false  
-        clearGetList()
         Actor.hide()
-        Actor.deletePerson()
-        Actor.delete()
-        
         passTime(1,2)
+        timeout(1,rdl_cache)
         SceneEnd()
    EndIf
 
@@ -268,6 +285,5 @@ While keepSearching !== false
 
 EndWhile
 
-clearGetList()
 
 SceneEnd()

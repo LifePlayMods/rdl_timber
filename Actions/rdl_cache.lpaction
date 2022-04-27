@@ -1,12 +1,12 @@
 ACTION_UNIQUEID: rdl_cache
-ACTION_NAME: Check matches on Timber
-WHERE: home
+ACTION_NAME: Charge phone
+WHERE: pc
 WHEN: 0 - 24
-MINUTES: 1 - 2
-TIMEOUT_MINUTES: 0
+MINUTES: 5 - 30
+TIMEOUT_MINUTES: 120
 ALSO_TIMEOUT: 
-EFFECTS:
-CONDITIONS: Player.getActorVar(timberMember)>0
+EFFECTS: energy -10 (DURATION), arousal + Random(0,10) (END)
+CONDITIONS: companioncount == 0 (STAT_COMPARE) && ForcedTrigger() (CONDITION) && getActorVar(timberMember) (STAT_COMPARE)
 MOVE_FIRST: false
 SCENE_ALWAYS: rdl_cache
-ANIMATION:   
+ANIMATION: browse

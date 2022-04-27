@@ -1,30 +1,54 @@
 WHAT: none
 WHERE: none
 WHEN: 0 - 24
-WHO: Actor = CurrentCompanion
-OTHER: isWithCompanion() && Actor.getActorVar(tag_timber)==1
+WHO:  Actor = getCompanion() 
+OTHER: 
 
 SceneStart()
-    isTimber=Actor.getActorVar(tag_timber)
-    If !isTimber
+    isTimber=Actor.getActorVar(tag_Timber)
+    If isTimber==0
         Actor(Surprised)::"I don't know you from Timber!"
+        Player(Embarassed)::"Oops... my bad"
+        Actor(Angry)::"I'm not from Timber!"
+        Actor.rapportwithplayer-=Random(0,2)
         SceneEnd()
     EndIf
-    gotDickPic=Actor.getActorVar(rdl_gotDickPic)
-    gotDildo=Actor.getActorVar(rdl_gotDildo)
+    gotDickPic=Actor.getActorVar(rdlGotDickPic)
+    gotDildo=Actor.getActorVar(rdlGotDildo)
 
     0::gotDildo==1::"Remember the dildo I sent you?"
     1::gotDickPic>0::"Remember the dickpic I sent you?"
+    2::"What you think of me when you swiped?"
+    3::"Never mind"
 
     If 0
-        Actor(Flirty)::"I got it with me, want to have fun together with it"
+        Actor(Flirty)::"I got it with me, want to have fun together with it?"
         Filter(Dildo)
         sex(Player,Actor)
     ElseIf 1
-        Actor(Surprised)::"Yeah"
-        Filter(Strip)
+        Actor(Surprised)::"Yeah, show me for real though"
+        Filter(Solo)
         Player.strip()
+        FilterTalk(rdl_timber_real_restricted)
         sex(Player)
+        Filter(Blowjob,Boobjob,LickingBoobs,Oral,Foreplay)
+        Actor(Evil)::"Let me join in !"
+        Filter(Oral)
+        FilterTalk(rdl_timber_date_restricted)
+        sex(Player,Actor)
+    ElseIf 2
+        Random
+            Actor(Kiss)::"I liked you from the start"
+            Actor(Flirty)::"I thought he is sexy"
+            Actor(Flirty)::"I want to date him was on my mind"
+            Actor(Flirty)::"I want to kiss him"
+            Actor(Flirty)::"I want to marry him"
+            Actor(Flirty)::"I want to have a baby with him"
+            Actor(Kiss)::"He seems like a nice guy"
+            Actor(Kiss)::"He is a cool guy"
+            Actor(Kiss)::"I want to be friends with him"
+        endRandom
+    
     EndIf
 
 SceneEnd()

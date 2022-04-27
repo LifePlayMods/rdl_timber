@@ -6,7 +6,7 @@ MINUTES: 2 - 30
 TIMEOUT_MINUTES: 10
 ALSO_TIMEOUT: 
 EFFECTS: energy -10 (DURATION), arousal + Random(0,10) (END)
-CONDITIONS: companioncount == 0 (STAT_COMPARE)
+CONDITIONS: companioncount == 0 (STAT_COMPARE) && ForcedTrigger() (CONDITION)
 MOVE_FIRST: false
 SCENE_ALWAYS: rdl_timber
 ANIMATION: browse

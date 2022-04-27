@@ -1,0 +1,24 @@
+*START* Tag(Oral)
+    ...
+    Let me suck that big dick of you <A1.name>
+##
+*START* Tag(Oral)
+    ...
+    Let's start slow, <Player.name>!
+##
+Tag(Oral) && toCum > 20
+    I want to fuck you
+    Next time baby
+##
+Tag(Oral)
+    You are the best match ever
+    See what my mouth can do
+##
+Tag(Oral)
+   <A2.name>!!! <A2.name>!!!
+   <A1.name>!!! <Player.timberHandle>!!!
+##
+Tag(Oral) && A1.toCum>80 
+   I am going to cum all over you <A2.name>!!!
+   Give it to me <A1.name> !!!
+##

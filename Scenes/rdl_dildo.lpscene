@@ -1,0 +1,51 @@
+WHAT: all
+WHERE: all
+WHEN: 0 - 24
+WHO: Actor = getSpecific(PassedOn)
+OTHER: ForcedTrigger()
+
+SceneStart()
+
+clearGetList()
+
+    If !Actor.isValid()
+        "Not a valid Actor.. "
+        "Aborting"
+        SceneEnd()
+    EndIf
+    Actor = getSpecific(PassedOn)
+    Actor.hide()
+    secondScreen(Actor)
+    Actor.show()
+    Actor(Flirty)::"I received your gift..<Actor.getActorVar(tag_timber)>"
+    Actor(Flirty)::"Great gift.. Can not wait to try it!"
+    Player.hide()
+    secondScreen()
+    setbackground3D(Modules/rdl_timber/tmpGirlRoom.lpworld,false)
+    Actor.setActorVar(rdlGotDildo,1)
+    Actor.show(0,0,410)
+    cameraMove(30,0,800,0,-15,-180)
+    Actor(Kiss)::"I hope you are watching this on your phone!"
+    Actor.stripOne()
+    Actor(Flirty)::"Let's have some fun with this thing..."
+    Actor.strip()
+    Filter(Dildo)
+    FilterTalk(rdl_timber_restricted)
+    FilterDesc(rdl_timber_restricted)
+    cameraMove(30,0,800,0,-35,-180)
+    cameraFocus(Actor)
+    sexAtPoint(0,0,410)
+    sex(Actor)  
+    Actor.hide()            
+    setBackground(Home)
+    cameraMove(0,0,1000,0,-40,-180)    
+    secondScreen(Actor)
+    Actor.show()
+    Random
+        Actor(Happy)::"That was so nice.. "
+        Actor(Flirty)::"Getting so hot..."
+        Actor(Wink)::"You really know what I want"
+    EndRandom
+    Actor:rapportwithplayer+=Random(1,5)   
+    stayInMenu=true
+SceneEnd()

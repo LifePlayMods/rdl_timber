@@ -1,10 +1,11 @@
 WHAT: all
 WHERE: all
 WHEN: 0 - 24
-WHO: Actor = CurrentCompanion 
-OTHER: isWithCompanion() && Actor.getActorVar(tag_timber) == 1
+WHO:  Actor = getCompanion(); If !Actor.isCreature() && Actor.getActorVar(tag_Timber) (CONDITION)
+OTHER: none
 
 SceneStart()
+    
     Actor::"Nice we are on a Timber date !"
     knowHer=Actor.getActorVar(tag_timber)
     If knowHer==1

@@ -1,12 +1,24 @@
 WHAT: all
 WHERE: all
 WHEN: 0 - 24
-WHO:
-OTHER: Player.getActorVar(timberMember)>0 
+WHO: none
+OTHER: getActorVar(timberMember) (STAT_COMPARE)
 
 SceneStart()
 
 likesMe=CachedLikes.GetGlobal()
+Matching = Matches.GetGlobal()
+MySwipes=Swipes.GetGlobal()
+timberMember=Player.getActorVar(timberMember)
+
+"While charging your phone, some Timber notifications arrived..."
+
+If !isTimingOut(rdl_timber) && MySwipes<3 && premiumDays < 1
+        MySwipes=3
+        "You got your daily free Timber likes !"
+        timeoutPrecise(24,rdl_timber)      
+EndIf
+
 If likesMe > 0 && Matching < 3
         "You got a Timber match!"
         mood+=Random(10,20)
@@ -18,15 +30,32 @@ If likesMe > 0 && Matching < 3
 EndIf
 If Player:rdlTimberPremium==0
         "Special offer from Timber! Subscribe to Timber+ for 50% off!!"
-        0::"Yes"
-        1::"No"
 
-        If 0
+        1::"Yes"
+        2::"No"
+
+        If 1
            money-=250
            Player:rdlTimberPremium+=28
         Else
            Player::"Not going for paid membership"
         EndIf
 EndIf
+If Matching>0
+        "Don't keep your match waiting! Want to visit Timber now?"
+                0::"Yes"
+                1::"No"
 
+                If 0
+                        followUp(rdl_timber)
+                ElseIf
+                    Random
+                        Player::"Not now"
+                        Player::"Maybe later"
+                        Player::"Some other time"
+                    endRandom
+                Endif
+EndIf
+
+timeout(1,rdl_cache) 
 SceneEnd()

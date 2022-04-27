@@ -25,8 +25,9 @@ premiumPrice=500
 localPrice=premiumPrice.convertToLocalCurrency(true)
 While stayInMenu
     tRaceID=Player.getActorVar(timberRace)
+    tAgeID=Player.getActorVar(timberAge)
     If tRaceID==0
-         tRace="None"
+        tRace="None"
     ElseIf tRaceID==1
         tRace="Arab"
     ElseIf tRaceID==2
@@ -39,17 +40,26 @@ While stayInMenu
         tRace="White"
     EndIf
  
-    0::Player:rdlTimberPremium<1::"Get Timber+ <localPrice> "
+    If tAgeID==0
+        tAge="Any"
+    ElseIf tAgeID==1
+        tAge="Twenties"
+    ElseIf tAgeID==2
+        tAge="Thirties"
+    ElseIf tAgeID==3
+        tAge="Fourties"
+    EndIf
+    0::Player:rdlTimberPremium<1::"Get Timber+ <localPrice> (1 month)"
     1::"Change account name"
     2::"Seeking race <tRace>"
-    3::"Set Maximum Age"
+    3::"Set Age <tAge>"
     4::"Start swiping!"
 
     stayInMenu=false
 
     If 0
         "Getting Timber Plus!"
-        Player:rdlTimberPremium+=28
+        Player:rdlTimberPremium+=31
         money-=premiumPrice
         stayInMenu=true
     ElseIf 1
@@ -63,6 +73,13 @@ While stayInMenu
             tRaceID=0
         EndIf
         Player.setActorVar(timberRace,tRaceID)
+        stayInMenu=true
+    ElseIf 3
+        tAgeID=tAgeID+1
+        If tAgeID>3
+            tAgeID=0
+        EndIf
+        Player.setActorVar(timberAge,tAgeID)
         stayInMenu=true
     ElseIf 4
         followUp(rdl_timber)

@@ -22,9 +22,10 @@ While Matching >= 1
     EndIf
     Actor = getSpecific(ID)
     If Actor.isValid()
-        secondScreen(Actor)
         Actor.dress()
+        secondScreen(Actor)
         Actor.show()
+        
         Actor(Happy)::"Hi, <Player.timberHandle>! I am <Actor.name>, <Actor:age>.."
         
             0::"Exchange contact with <Actor.name>"
