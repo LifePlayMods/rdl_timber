@@ -35,6 +35,7 @@ While Matching >= 1
                     Actor.makeInterested(Player)
                     exchangeContact(Actor)
                     Actor.setActorVar(tag_Timber, 1) 
+                    Actor:rdlTimberTag=1
                     "Added <Actor.name> to my contacts"
                     Actor.hide()
                     Actor.saveAndDelete()

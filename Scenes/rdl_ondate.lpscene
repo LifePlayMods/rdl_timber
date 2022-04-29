@@ -1,7 +1,7 @@
 WHAT: all
 WHERE: all
 WHEN: 0 - 24
-WHO:  Actor = getCompanion(); If !Actor.isCreature() && Actor.getActorVar(tag_Timber) (CONDITION)
+WHO:  Actor = getCompanion(); If !Actor.isCreature() && Actor:rdlTimberTag>0
 OTHER: none
 
 SceneStart()

@@ -18,6 +18,7 @@ Actor.show()
 
 Actor(Curious)::"Hi there <Player.name>, what's up?"
 Actor.setActorVar(tag_Timber,1)
+Actor:rdlTimberTag=1
 exchangeContact(Actor)
 While stayInMenu
   
@@ -49,8 +50,8 @@ While stayInMenu
                     Actor(Smiling)::"Oh, me too!"
                     Actor::"Show me your dick <Player.name>...."
                     Actor:rapportwithplayer+=Random(1,5)
-                ElseIf Actor:arousal > 50
-                    Actor(Smiling)::"Me too, but I am not sure if I can handle you"
+                ElseIf Actor:arousal > 30
+                    Actor(Smiling)::"I am a bit horny, but I am not sure if I can handle you"
                 Else
                     Actor(Angry)::"I am not. Keep it to yourself."
                     Actor:rapportwithplayer-=Random(1,5)
@@ -64,15 +65,15 @@ While stayInMenu
                 EndRandom     
                 mood+=3
                 Actor:rapportwithplayer+=Random(0,1)
-                Actor:arousal+=Random(0,5)
+                Actor:arousal+=Random(1,8)
                 stayInMenu=true
             ElseIf msg==2
-                If Actor:rapportwithplayer>35
+                If Actor:rapportwithplayer>35 && Random(1,100)>30
                     Actor(Happy)::"Where do you want to meet"
                     
                         0::"Cafe"
                         1::"Pub"
-                        2::"Cinema.."
+                        2::"Cinema"
                         3::"Nightclub"
                         4::"My Place"
                             
@@ -133,6 +134,7 @@ While stayInMenu
                     endRandom
                     Actor:masochist+=Random(1,2)
                     Actor:perversion+=Random(1,2)
+                    Actor:arousal+=Random(5,15)
                     Actor:rapportwithplayer-=Random(1,5)
                 ElseIf Actor:rapportwithplayer<10 && Actor:masochist<=0 && Actor:attractiveness<50
                     Random
@@ -144,10 +146,11 @@ While stayInMenu
                     Actor:rapportwithplayer-=Random(1,5)
                 ElseIf Actor:attractiveness>50 && Actor:masochist>10
                     Random
-                        Actor(Annoyed)::"I am not ugly, but if you think I am, you are wrong"
+                        Actor(Annoyed)::"I am not ugly, but if you think I am, you are wrong..or are you hmmmm"
                         Actor(Confused)::"Me ugly? Oooh, you are the first to think so"
                     endRandom
                     Actor:masochist+=Random(1,2)
+                     Actor:arousal+=Random(5,15)
                     Actor:perversion+=Random(1,2)
                 ElseIf Actor:attractiveness>50 && Actor:masochist<=10
                     Random
@@ -186,7 +189,11 @@ While stayInMenu
                    followUp(rdl_dildo)
                    SceneEnd()              
                 Else
-                    Actor(Irritated)::"Why you send me this? Get to know me better first!"
+                    If Actor:rapportwithplayer>25 && Actor:arousal<40
+                        Actor(Flirty)::"We know each other, but arouse me first before sending this.."
+                    Else
+                        Actor(Irritated)::"Why you send me this? Get to know me better first!"
+                    EndIf
                     Actor:arousal-=Random(1,10)
                     Actor:rapportwithplayer-=Random(1,5)
                 EndIf
@@ -196,8 +203,9 @@ While stayInMenu
             Player.strip()
             Player:arousal += Random(0, 10)
             gotPic=Actor.getActorVar(rdlGotDickPic)
+            Player(Kiss)::"Here is a good picture of little <Player.timberHandle>"
 
-            If Actor:arousal > 50 && Actor:rapportwithplayer>30 && !gotPic
+            If Actor:arousal > 50 && Actor:rapportwithplayer>30 && gotPic==0
                 Actor(Kiss)::"Nice dick, you are turning me on!"
                 Actor:rapportwithplayer+=Random(1,5)
                 Actor:attractiontoplayer+=Random(0,3)
@@ -246,9 +254,16 @@ While stayInMenu
         EndIf
         sheDone=Random(1,100)
         If sheDone<10
-            Actor(Bored)::"Listen, I gotta go.."
-            Actor::"Talk to you later"
+            Random
+                Actor(Bored)::"Listen, I gotta go..Talk to you soon!!"
+                Actor::"Talk to you later, gotta go..."
+                Actor(Bored)::"I gotta go, talk to you later!"
+                Actor(Bored)::"Dinner is ready, talk to you later!"
+            endRandom
+            0.passOn()
+            timeoutActorPrecise(4,rdl_timber,Actor)
             Actor.saveAndDelete()
+            clearGetList()
             SceneEnd()
         EndIf
 

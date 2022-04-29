@@ -1,0 +1,19 @@
+A2:rdlTimberTag==1
+    I am going to swipe you so bad <A2.name>
+    Let me call you <A1.timberHandle>, <A1.name> !!
+##
+A2:rdlTimberTag==1
+    You are the best match ever.........
+    You look so much better than on your profile!
+##
+A2:rdlTimberTag==1 && Tag(Foreplay)
+    You are so hot <A2.name>!!
+    Come one!! We did enough flirting online <A2.timberHandle> Fuck me already!!!
+A2:rdlTimberTag==1
+   <A2.name>!!! <A2.name>!!!
+   <A1.name>!!! <Player.timberHandle>!!! <Player.timberHandle>!!!
+##
+A2:rdlTimberTag==1 && toCum > 60
+   I am going to cum all over you <A2.name>!!!
+   Give it to me <A1.timberHandle> !!!
+##

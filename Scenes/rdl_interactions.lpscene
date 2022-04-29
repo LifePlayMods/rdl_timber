@@ -32,8 +32,9 @@ SceneStart()
         FilterTalk(rdl_timber_real_restricted)
         sex(Player)
         Filter(Blowjob,Boobjob,LickingBoobs,Oral,Foreplay)
-        Actor(Evil)::"Let me join in !"
-        Filter(Oral)
+        Actor(Evil)::"Make some more pictures!"
+        Actor(Flirty)::"Film us having sex!"
+        Filter(Camera)
         FilterTalk(rdl_timber_date_restricted)
         sex(Player,Actor)
     ElseIf 2

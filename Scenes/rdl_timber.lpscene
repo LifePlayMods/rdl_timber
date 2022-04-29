@@ -277,7 +277,7 @@ While keepSearching !== false
         keepSearching = false  
         Actor.hide()
         passTime(1,2)
-        timeout(1,rdl_cache)
+        timeoutPrecise(1,rdl_cache)
         SceneEnd()
    EndIf
 

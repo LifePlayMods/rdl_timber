@@ -19,12 +19,7 @@
 - Preferences for age and race
 
 ## Tips
-- Do not set a naughty picture if you did not find out by messaging that she is ready for it
-- Do not talk about your Timber match with girls you did not meet on Timber
+- Do not send a naughty picture if you did not find out by messaging that she is ready for it
 - All outcomes are influenced by your acts, you can archieve all of the outcomes, there are no dead ends
-
-
-
-
 
 

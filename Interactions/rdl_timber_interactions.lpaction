@@ -10,4 +10,4 @@ CONDITIONS:
 MOVE_FIRST: false
 SCENE_ALWAYS: rdl_interactions
 ANIMATION: 
-WHO: Actor = getTarget(); 
+WHO: Actor = getTarget(); If Actor:rdlTimberTag>0

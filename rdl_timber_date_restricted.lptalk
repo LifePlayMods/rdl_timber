@@ -1,24 +1,24 @@
-*START* Tag(Oral)
-    ...
-    Let me suck that big dick of you <A1.name>
+*START* Tag(Camera)
+    Let me get a good focus
+    Do not film my face <A1.name>
 ##
-*START* Tag(Oral)
-    ...
-    Let's start slow, <Player.name>!
+*START* Tag(Camera)
+    This will be a great video
+    Get my good side <Player.name>!
 ##
-Tag(Oral) && toCum > 20
-    I want to fuck you
-    Next time baby
+Tag(Camera) && toCum > 20
+    Getting such a deep angle <A2.name>
+    Get right up there <A1.timberHandle> !!
 ##
-Tag(Oral)
+Tag(Camera)
     You are the best match ever
-    See what my mouth can do
+    You'll be watching rewinds all day
 ##
-Tag(Oral)
+Tag(Camera)
    <A2.name>!!! <A2.name>!!!
    <A1.name>!!! <Player.timberHandle>!!!
 ##
-Tag(Oral) && A1.toCum>80 
+Tag(Camera) && A1.toCum>80 
    I am going to cum all over you <A2.name>!!!
    Give it to me <A1.name> !!!
 ##
