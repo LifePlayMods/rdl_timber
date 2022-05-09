@@ -27,7 +27,7 @@ While stayInMenu
     tRaceID=Player.getActorVar(timberRace)
     tAgeID=Player.getActorVar(timberAge)
     If tRaceID==0
-        tRace="None"
+        tRace="Any"
     ElseIf tRaceID==1
         tRace="Arab"
     ElseIf tRaceID==2
@@ -38,6 +38,10 @@ While stayInMenu
         tRace="Latin"
     ElseIf tRaceID==5
         tRace="White"
+    ElseIf tRaceID==6
+        tRace="South Asian"
+    ElseIf tRaceID==7
+        tRace="East Asian"
     EndIf
  
     If tAgeID==0
@@ -69,7 +73,7 @@ While stayInMenu
         stayInMenu=true
     ElseIf 2
         tRaceID=tRaceID+1
-        If tRaceID>5
+        If tRaceID>7
             tRaceID=0
         EndIf
         Player.setActorVar(timberRace,tRaceID)

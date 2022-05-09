@@ -67,6 +67,10 @@ While keepSearching !== false
               setRaceGenerated(latin)
           ElseIf tRaceID==5
               setRaceGenerated(white)
+          ElseIf tRaceID==6
+              setRaceGenerated(asian)
+          ElseIf tRaceID==7
+              setRaceGenerated(asian)
           EndIf
       EndIf
 
